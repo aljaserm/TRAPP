@@ -25,18 +25,18 @@ namespace TRAPP
                 p.Experience = entExperience.Text;
             };
 
-            SQLiteConnection con = new SQLiteConnection(App.DBLocation);
-            con.CreateTable<Post>();
-            int rows=con.Insert(p);
-            con.Close();
-
-            if (rows > 0)
+            using (SQLiteConnection con = new SQLiteConnection(App.DBLocation))
             {
-                DisplayAlert("Success", "Added","OK");
-            }
-            else
-            {
-                DisplayAlert("Failed", "Not Added", "OK");
+                con.CreateTable<Post>();
+                int rows = con.Insert(p);
+                if (rows > 0)
+                {
+                    DisplayAlert("Success", "Added", "OK");
+                }
+                else
+                {
+                    DisplayAlert("Failed", "Not Added", "OK");
+                }
             }
         }
     }
