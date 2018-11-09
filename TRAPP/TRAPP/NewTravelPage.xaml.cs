@@ -25,28 +25,49 @@ namespace TRAPP
             base.OnAppearing();
             var locator = CrossGeolocator.Current;
             var postion = await locator.GetPositionAsync();
-            var venues = VenueLogic.GetVenues(postion.Latitude, postion.Longitude);
+            var venues = await VenueLogic.GetVenues(postion.Latitude, postion.Longitude);
+            lsvVenue.ItemsSource = venues.OrderBy(c => c.location.distance);
         }
 
         private void ToolbarItem_Clicked(object sender, EventArgs e)
         {
-            Post p = new Post();
+            try
             {
-                p.Experience = entExperience.Text;
-            };
+                var selectedVenue = lsvVenue.SelectedItem as Venue;
+                var firstCategory = selectedVenue.categories.FirstOrDefault();
+                Post p = new Post()
+                {
+                    Experience = entExperience.Text,
+                    VenueName = selectedVenue.name,
+                    CategoryID = firstCategory.id,
+                    CategoryName = firstCategory.name,
+                    VenueAddress = selectedVenue.location.address,
+                    VenueLat = selectedVenue.location.lat,
+                    VenueLng = selectedVenue.location.lng,
+                    VenueDistance = selectedVenue.location.distance
+                };
 
-            using (SQLiteConnection con = new SQLiteConnection(App.DBLocation))
+                using (SQLiteConnection con = new SQLiteConnection(App.DBLocation))
+                {
+                    con.CreateTable<Post>();
+                    int rows = con.Insert(p);
+                    if (rows > 0)
+                    {
+                        DisplayAlert("Success", "Added", "OK");
+                    }
+                    else
+                    {
+                        DisplayAlert("Failed", "Not Added", "OK");
+                    }
+                }
+            }
+            catch(NullReferenceException nrex)
             {
-                con.CreateTable<Post>();
-                int rows = con.Insert(p);
-                if (rows > 0)
-                {
-                    DisplayAlert("Success", "Added", "OK");
-                }
-                else
-                {
-                    DisplayAlert("Failed", "Not Added", "OK");
-                }
+
+            }
+            catch(Exception ex)
+            {
+
             }
         }
     }
