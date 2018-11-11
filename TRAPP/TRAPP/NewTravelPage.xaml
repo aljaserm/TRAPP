@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TRAPP.NewTravelPage">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Save" Clicked="ToolbarItem_Clicked"/>
+        <ToolbarItem Icon="save.png" Text="Save" Clicked="ToolbarItem_Clicked"/>
     </ContentPage.ToolbarItems>
     
         <StackLayout>

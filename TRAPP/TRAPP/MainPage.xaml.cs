@@ -12,6 +12,9 @@ namespace TRAPP
         public MainPage()
         {
             InitializeComponent();
+            var assembly = typeof(MainPage);
+            imgIcon.Source = ImageSource.FromResource("TRAPP.Assets.Images.plane.png", assembly);
+
         }
 
         private void btnLogin_Clicked(object sender, EventArgs e)
