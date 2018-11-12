@@ -3,10 +3,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TRAPP.ProfilePage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.profile!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <StackLayout Margin="20,40,20,0">
+            <Label x:Name="lblPostCount" Text="---"
+                TextColor="DodgerBlue" FontAttributes="Bold"
+                HorizontalOptions="Center" />
+        <Label Text="Posts"
+           TextColor="LightGray"
+               HorizontalOptions="Center"/>
+            <ListView x:Name="lvCategory">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding Path=Key}" Detail="{Binding Path=Value}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+    </StackLayout>
     </ContentPage.Content>
+
 </ContentPage>

@@ -54,6 +54,7 @@ namespace TRAPP
                     if (rows > 0)
                     {
                         DisplayAlert("Success", "Added", "OK");
+                        Navigation.PushAsync(new HomePage());
                     }
                     else
                     {
