@@ -19,17 +19,21 @@ namespace TRAPP
 			InitializeComponent ();
 		}
 
-        protected override void OnAppearing()
+        protected async override void OnAppearing()
         {
+            base.OnAppearing();
+
             try
             {
-                base.OnAppearing();
-            using (SQLiteConnection con = new SQLiteConnection(App.DBLocation))
-            {
-                con.CreateTable<Post>();
-                var post = con.Table<Post>().ToList();
-                lvPost.ItemsSource = post;
-            }
+
+                var p = await App.MobileService.GetTable<Post>().Where(x =>x.UserID==App.userGlobal.Id).ToListAsync();
+                lvPost.ItemsSource = p;
+                //using (SQLiteConnection con = new SQLiteConnection(App.DBLocation))
+                //{
+                //    con.CreateTable<Post>();
+                //    var post = con.Table<Post>().ToList();
+                //    lvPost.ItemsSource = post;
+                //}
             }
             catch (Exception e)
             {

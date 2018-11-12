@@ -34,15 +34,17 @@ namespace TRAPP
                 var center = new Position(position.Latitude, position.Longitude);
                 var span = new MapSpan(center, 2, 2);
                 mpLocation.MoveToRegion(span);
-                using (SQLiteConnection con = new SQLiteConnection(App.DBLocation))
-                {
-                    con.CreateTable<Post>();
-                    var post = con.Table<Post>().ToList();
-                    //lvPost.ItemsSource = post;
-                    DisplayinMap(post);
-                }
+                var p = await App.MobileService.GetTable<Post>().Where(x => x.UserID == App.userGlobal.Id).ToListAsync();
+                DisplayinMap(p);
+                //using (SQLiteConnection con = new SQLiteConnection(App.DBLocation))
+                //{
+                //    con.CreateTable<Post>();
+                //    var post = con.Table<Post>().ToList();
+                //    //lvPost.ItemsSource = post;
+                //    DisplayinMap(post);
+                //}
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Debug.WriteLine(e);
             }
