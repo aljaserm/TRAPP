@@ -7,6 +7,7 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using System.IO;
+using Microsoft.WindowsAzure.MobileServices;
 
 namespace TRAPP.Droid
 {
@@ -21,6 +22,7 @@ namespace TRAPP.Droid
             base.OnCreate(savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             Xamarin.FormsMaps.Init(this, savedInstanceState);
+            CurrentPlatform.Init();
 
 
             string dbName= "travel_db.sqlite";

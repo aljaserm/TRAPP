@@ -8,7 +8,7 @@ namespace TRAPP.Model
     public class Post
     {
         [PrimaryKey, AutoIncrement]
-        public int ID { get; set; }
+        public string ID { get; set; }
         [MaxLength(250)]
         public string Experience { get; set; }
         public string VenueName { get; set; }
@@ -18,5 +18,6 @@ namespace TRAPP.Model
         public double VenueLat { get; set; }
         public double VenueLng { get; set; }
         public int VenueDistance { get; set; }
+        public string UserID { get; set; }
     }
 }

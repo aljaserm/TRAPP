@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.WindowsAzure.MobileServices;
+using System;
+using TRAPP.Model;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -8,6 +10,12 @@ namespace TRAPP
     public partial class App : Application
     {
         public static string DBLocation = string.Empty;
+        public static MobileServiceClient MobileService =
+            new MobileServiceClient(
+            "https://trapp.azurewebsites.net"
+        );
+        public static User userGlobal = new User();
+
         public App()
         {
             InitializeComponent();

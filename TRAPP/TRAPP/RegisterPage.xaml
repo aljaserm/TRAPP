@@ -2,16 +2,12 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:TRAPP"
-             x:Class="TRAPP.MainPage">
+             x:Class="TRAPP.RegisterPage">
     <StackLayout  VerticalOptions="Center" Margin="20">
 
-        <Image x:Name="imgIcon" Aspect="AspectFit" HorizontalOptions="FillAndExpand" Margin="0,0,0,50"
-               HeightRequest="150"/>
         <Entry x:Name="entEmail" Placeholder="Enter Email" Keyboard="Email"/>
         <Entry x:Name="entPass" Placeholder="Enter Password" IsPassword="True"/>
-        <Button Text="Log in"  x:Name="btnLogin" Clicked="btnLogin_Clicked"  Margin="0,25,0,0" Style="{StaticResource normalBtn}"/>
-        <Button x:Name="btnSignupUser" Text="Signup" HorizontalOptions="End" Clicked="btnSignupUser_Clicked"/>
+        <Entry x:Name="entPassConfirm" Placeholder="Confirm Password" IsPassword="True"/>
+        <Button Text="Signup"  x:Name="btnSignup" Clicked="btnSignup_Clicked"  Margin="0,25,0,0" Style="{StaticResource normalBtn}"/>
     </StackLayout>
-    
-
 </ContentPage>

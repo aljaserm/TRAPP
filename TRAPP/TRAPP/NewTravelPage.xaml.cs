@@ -29,7 +29,7 @@ namespace TRAPP
             lsvVenue.ItemsSource = venues.OrderBy(c => c.location.distance);
         }
 
-        private void ToolbarItem_Clicked(object sender, EventArgs e)
+        private async void ToolbarItem_Clicked(object sender, EventArgs e)
         {
             try
             {
@@ -44,31 +44,35 @@ namespace TRAPP
                     VenueAddress = selectedVenue.location.address,
                     VenueLat = selectedVenue.location.lat,
                     VenueLng = selectedVenue.location.lng,
-                    VenueDistance = selectedVenue.location.distance
+                    VenueDistance = selectedVenue.location.distance,
+                    UserID=App.userGlobal.Id
                 };
+                await App.MobileService.GetTable<Post>().InsertAsync(p);
+                await DisplayAlert("Success", "Added", "OK");
+                await Navigation.PushAsync(new HomePage());
 
-                using (SQLiteConnection con = new SQLiteConnection(App.DBLocation))
-                {
-                    con.CreateTable<Post>();
-                    int rows = con.Insert(p);
-                    if (rows > 0)
-                    {
-                        DisplayAlert("Success", "Added", "OK");
-                        Navigation.PushAsync(new HomePage());
-                    }
-                    else
-                    {
-                        DisplayAlert("Failed", "Not Added", "OK");
-                    }
-                }
+                //using (SQLiteConnection con = new SQLiteConnection(App.DBLocation))
+                //{
+                //    con.CreateTable<Post>();
+                //    int rows = con.Insert(p);
+                //    if (rows > 0)
+                //    {
+                //        DisplayAlert("Success", "Added", "OK");
+                //        Navigation.PushAsync(new HomePage());
+                //    }
+                //    else
+                //    {
+                //        DisplayAlert("Failed", "Not Added", "OK");
+                //    }
+                //}
             }
-            catch(NullReferenceException nrex)
+            catch (NullReferenceException nrex)
             {
-
+                await DisplayAlert("Failed", "Not Added", "OK");
             }
             catch(Exception ex)
             {
-
+                await DisplayAlert("Failed", "Not Added", "OK");
             }
         }
     }
