@@ -28,21 +28,14 @@ namespace TRAPP
                 base.OnAppearing();
                 var locator = CrossGeolocator.Current;
                 locator.PositionChanged += Locator_PositionChanged;
-                //The issue started when I added the following line
                 await locator.StartListeningAsync(TimeSpan.FromSeconds(0), 100);
                 var position =await locator.GetPositionAsync();
                 var center = new Position(position.Latitude, position.Longitude);
                 var span = new MapSpan(center, 2, 2);
                 mpLocation.MoveToRegion(span);
-                var p = await App.MobileService.GetTable<Post>().Where(x => x.UserID == App.userGlobal.Id).ToListAsync();
+                var p = await Post.Read();
                 DisplayinMap(p);
-                //using (SQLiteConnection con = new SQLiteConnection(App.DBLocation))
-                //{
-                //    con.CreateTable<Post>();
-                //    var post = con.Table<Post>().ToList();
-                //    //lvPost.ItemsSource = post;
-                //    DisplayinMap(post);
-                //}
+                
             }
             catch (Exception e)
             {

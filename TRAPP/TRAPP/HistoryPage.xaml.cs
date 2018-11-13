@@ -26,7 +26,7 @@ namespace TRAPP
             try
             {
 
-                var p = await App.MobileService.GetTable<Post>().Where(x =>x.UserID==App.userGlobal.Id).ToListAsync();
+                var p = await Post.Read();
                 lvPost.ItemsSource = p;
                 //using (SQLiteConnection con = new SQLiteConnection(App.DBLocation))
                 //{

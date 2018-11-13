@@ -12,21 +12,19 @@ namespace TRAPP
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class RegisterPage : ContentPage
 	{
+        User user;
 		public RegisterPage ()
 		{
 			InitializeComponent ();
+            user = new User();
+            ContainerStackLayout.BindingContext = user;
 		}
 
         private async void btnSignup_Clicked(object sender, EventArgs e)
         {
             if (entPass.Text == entPassConfirm.Text)
             {
-                User u = new User()
-                {
-                    Email = entEmail.Text,
-                    Password = entPass.Text
-                };
-                await App.MobileService.GetTable<User>().InsertAsync(u);
+                User.SignUp(user);
             }
             else
             {

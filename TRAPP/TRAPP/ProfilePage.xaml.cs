@@ -23,16 +23,9 @@ namespace TRAPP
 
             //    using (SQLiteConnection con = new SQLiteConnection(App.DBLocation))
             //    {
-            var postTable = await App.MobileService.GetTable<Post>().Where(x => x.UserID == App.userGlobal.Id).ToListAsync();
-            var category = (from p in postTable orderby p.CategoryID select p.CategoryName).Distinct().ToList();
-            Dictionary<string, int> CategoryCount = new Dictionary<string, int>();
-            foreach (var c in category)
-            {
-                var count = (from p in postTable where p.CategoryName == c select p).ToList().Count;
-                CategoryCount.Add(c, count);
+            var postTable = await Post.Read();
 
-            }
-
+            var CategoryCount = Post.CategoryDictionry(postTable);
             lvCategory.ItemsSource = CategoryCount;
             lblPostCount.Text = postTable.Count.ToString();
             //    }

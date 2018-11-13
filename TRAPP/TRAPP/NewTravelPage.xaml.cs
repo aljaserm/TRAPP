@@ -1,23 +1,21 @@
 ﻿using Plugin.Geolocator;
-using SQLite;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TRAPP.Logic;
 using TRAPP.Model;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace TRAPP
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
+    [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class NewTravelPage : ContentPage
 	{
+        Post post;
 		public NewTravelPage ()
 		{
 			InitializeComponent ();
+            post = new Post();
+            ContainerStackLayout.BindingContext = post;
 		}
 
         protected override async void OnAppearing()
@@ -25,7 +23,7 @@ namespace TRAPP
             base.OnAppearing();
             var locator = CrossGeolocator.Current;
             var postion = await locator.GetPositionAsync();
-            var venues = await VenueLogic.GetVenues(postion.Latitude, postion.Longitude);
+            var venues = await Venue.GetVenues(postion.Latitude, postion.Longitude);
             lsvVenue.ItemsSource = venues.OrderBy(c => c.location.distance);
         }
 
@@ -35,36 +33,18 @@ namespace TRAPP
             {
                 var selectedVenue = lsvVenue.SelectedItem as Venue;
                 var firstCategory = selectedVenue.categories.FirstOrDefault();
-                Post p = new Post()
-                {
-                    Experience = entExperience.Text,
-                    VenueName = selectedVenue.name,
-                    CategoryID = firstCategory.id,
-                    CategoryName = firstCategory.name,
-                    VenueAddress = selectedVenue.location.address,
-                    VenueLat = selectedVenue.location.lat,
-                    VenueLng = selectedVenue.location.lng,
-                    VenueDistance = selectedVenue.location.distance,
-                    UserID=App.userGlobal.Id
-                };
-                await App.MobileService.GetTable<Post>().InsertAsync(p);
+
+                post.VenueName = selectedVenue.name;
+                post.CategoryID = firstCategory.id;
+                post.CategoryName = firstCategory.name;
+                post.VenueAddress = selectedVenue.location.address;
+                post.VenueLat = selectedVenue.location.lat;
+                post.VenueLng = selectedVenue.location.lng;
+                post.VenueDistance = selectedVenue.location.distance;
+                post.UserID = App.userGlobal.Id;
+                Post.Insert(post);
                 await DisplayAlert("Success", "Added", "OK");
                 await Navigation.PushAsync(new HomePage());
-
-                //using (SQLiteConnection con = new SQLiteConnection(App.DBLocation))
-                //{
-                //    con.CreateTable<Post>();
-                //    int rows = con.Insert(p);
-                //    if (rows > 0)
-                //    {
-                //        DisplayAlert("Success", "Added", "OK");
-                //        Navigation.PushAsync(new HomePage());
-                //    }
-                //    else
-                //    {
-                //        DisplayAlert("Failed", "Not Added", "OK");
-                //    }
-                //}
             }
             catch (NullReferenceException nrex)
             {

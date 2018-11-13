@@ -5,9 +5,9 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Icon="save.png" Text="Save" Clicked="ToolbarItem_Clicked"/>
     </ContentPage.ToolbarItems>
-    
-        <StackLayout>
-        <Entry x:Name="entExperience" Placeholder="Write you Experience" />
+
+    <StackLayout x:Name="ContainerStackLayout">
+        <Entry x:Name="entExperience" Placeholder="Write you Experience" Text="{Binding Experience,Mode=TwoWay}"/>
         <ListView x:Name="lsvVenue" HorizontalOptions="FillAndExpand" Margin="20,0">
             <ListView.ItemTemplate>
                 <DataTemplate>

@@ -20,32 +20,15 @@ namespace TRAPP
 
         private async void btnLogin_Clicked(object sender, EventArgs e)
         {
-            bool bEmail=string.IsNullOrEmpty(entEmail.Text);
-            bool bPass=string.IsNullOrEmpty(entPass.Text);
-            if(bEmail || bPass)
+            bool Authorized = await User.UserLogin(entEmail.Text,entPass.Text);
+            if (Authorized)
             {
-
+                await Navigation.PushAsync(new HomePage());
             }
             else
             {
-                var user = (await App.MobileService.GetTable<User>().Where(u => u.Email == entEmail.Text).ToListAsync()).FirstOrDefault();
-                if (user != null)
-                {
-                    App.userGlobal = user;
-                    if (user.Password == entPass.Text)
-                    {
-                        await Navigation.PushAsync(new HomePage());
 
-                    }
-                    else
-                    {
-                        await DisplayAlert("Error", "Password not correct", "OK");
-                    }
-                }
-                else
-                {
-                    await DisplayAlert("Error", "Emil not correct", "OK");
-                }
+                await DisplayAlert("Error", "Email or Password are not correct", "OK");
             }
         }
 

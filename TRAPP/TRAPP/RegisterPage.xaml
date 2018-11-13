@@ -3,11 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:TRAPP"
              x:Class="TRAPP.RegisterPage">
-    <StackLayout  VerticalOptions="Center" Margin="20">
+    <StackLayout x:Name="ContainerStackLayout" VerticalOptions="Center" Margin="20">
 
-        <Entry x:Name="entEmail" Placeholder="Enter Email" Keyboard="Email"/>
+        <Entry x:Name="entEmail" Placeholder="Enter Email" Keyboard="Email" Text="{Binding Email, Mode=TwoWay}"/>
         <Entry x:Name="entPass" Placeholder="Enter Password" IsPassword="True"/>
-        <Entry x:Name="entPassConfirm" Placeholder="Confirm Password" IsPassword="True"/>
+        <Entry x:Name="entPassConfirm" Placeholder="Confirm Password" IsPassword="True" Text="{Binding Password, Mode=TwoWay}"/>
         <Button Text="Signup"  x:Name="btnSignup" Clicked="btnSignup_Clicked"  Margin="0,25,0,0" Style="{StaticResource normalBtn}"/>
     </StackLayout>
 </ContentPage>
