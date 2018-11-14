@@ -7,10 +7,10 @@
 
         <Image x:Name="imgIcon" Aspect="AspectFit" HorizontalOptions="FillAndExpand" Margin="0,0,0,50"
                HeightRequest="150"/>
-        <Entry x:Name="entEmail" Placeholder="Enter Email" Keyboard="Email"/>
-        <Entry x:Name="entPass" Placeholder="Enter Password" IsPassword="True"/>
-        <Button Text="Log in"  x:Name="btnLogin" Clicked="btnLogin_Clicked"  Margin="0,25,0,0" Style="{StaticResource normalBtn}"/>
-        <Button x:Name="btnSignupUser" Text="Signup" HorizontalOptions="End" Clicked="btnSignupUser_Clicked"/>
+        <Entry x:Name="entEmail" Placeholder="Enter Email" Text="{Binding Email,Mode=TwoWay}" Keyboard="Email"/>
+        <Entry x:Name="entPass" Placeholder="Enter Password" IsPassword="True" Text="{Binding Password,Mode=TwoWay}"/>
+        <Button Text="Log in"  x:Name="btnLogin" Command="{Binding LoginCommand}" CommandParameter="{Binding User}" Margin="0,25,0,0" Style="{StaticResource normalBtn}"/>
+        <Button x:Name="btnSignupUser" Text="Signup" HorizontalOptions="End" Command="{Binding SignupCommand}"/>
     </StackLayout>
     
 

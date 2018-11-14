@@ -4,7 +4,7 @@
             xmlns:local="clr-namespace:TRAPP"
              x:Class="TRAPP.HomePage">
     <TabbedPage.ToolbarItems>
-        <ToolbarItem Icon="add.png" Text="Add" Clicked="ToolbarItem_Clicked"/>
+        <ToolbarItem Icon="add.png" Text="Add" Command="{Binding nc}"/>
     </TabbedPage.ToolbarItems>
     <local:HistoryPage Icon="home.png" Title="History"/>
     <local:MapPage Icon="map.png" Title="Map"/>

@@ -31,7 +31,13 @@ namespace TRAPP.Model
             set { pass = value; onPropertyChange("Password"); }
         }
 
+        private string passC;
 
+        public string ConfirmPassword
+        {
+            get { return passC; }
+            set { passC = value; onPropertyChange("ConfirmPassword"); }
+        }
 
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -75,6 +81,7 @@ namespace TRAPP.Model
         public static async void SignUp(User user)
         {
             await App.MobileService.GetTable<User>().InsertAsync(user);
+            await App.Current.MainPage.Navigation.PushAsync(new MainPage());
         }
 
         private void onPropertyChange(string NameProperty)

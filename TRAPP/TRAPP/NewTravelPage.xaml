@@ -3,12 +3,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TRAPP.NewTravelPage">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Icon="save.png" Text="Save" Clicked="ToolbarItem_Clicked"/>
+        <ToolbarItem Text="Save"
+                     Icon="save.png"
+                     Command="{Binding NewTravelCommand}"
+                     CommandParameter="{Binding Post}"/>
     </ContentPage.ToolbarItems>
 
     <StackLayout x:Name="ContainerStackLayout">
-        <Entry x:Name="entExperience" Placeholder="Write you Experience" Text="{Binding Experience,Mode=TwoWay}"/>
-        <ListView x:Name="lsvVenue" HorizontalOptions="FillAndExpand" Margin="20,0">
+        <Entry x:Name="entExperience"
+               Text="{Binding Experience,Mode=TwoWay}"
+               Placeholder="Write you Experience" />
+        <ListView x:Name="lsvVenue" 
+                  SelectedItem="{Binding Venue, Mode=TwoWay}"
+                       Margin="20, 0"
+                       HorizontalOptions="FillAndExpand">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -23,7 +31,8 @@
                             </Grid.RowDefinitions>
                             <Label Text="{Binding name}" FontAttributes="Bold"/>
                             <Label Grid.Row="1" Text="{Binding location.address}" TextColor="DodgerBlue"/>
-                            <Label Grid.Column="1" Text="{Binding location.distance, StringFormat='{0} meters'}"/>
+                            <Label Grid.Column="1"
+                                       Text="{Binding location.distance, StringFormat='{0} meters'}" />
                         </Grid>
                     </ViewCell>
                 </DataTemplate>

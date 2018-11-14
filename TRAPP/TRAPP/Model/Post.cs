@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
 using System.ComponentModel;
+using Newtonsoft.Json;
 
 namespace TRAPP.Model
 {
@@ -85,6 +86,37 @@ namespace TRAPP.Model
         {
             get { return userID; }
             set { userID = value; onPropertyChange("UserID"); }
+        }
+
+        private Venue venue;
+        [JsonIgnore]
+        public Venue Venue
+        {
+            get { return venue; }
+            set
+            {
+                venue = value;
+                if (venue.categories != null)
+                {
+                    var firstCategory = venue.categories.FirstOrDefault();
+                
+                if (firstCategory != null)
+                {
+                    CategoryID = firstCategory.id;
+                    CategoryName = firstCategory.name;
+                }
+                }
+                if (venue.location != null)
+                {
+                    VenueAddress = venue.location.address;
+                    VenueLat = venue.location.lat;
+                    VenueLng = venue.location.lng;
+                    VenueDistance = venue.location.distance;
+                }
+                VenueName = venue.name;
+                UserID = App.userGlobal.Id;
+                onPropertyChange("Venue");
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

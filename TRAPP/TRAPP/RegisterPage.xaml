@@ -6,8 +6,8 @@
     <StackLayout x:Name="ContainerStackLayout" VerticalOptions="Center" Margin="20">
 
         <Entry x:Name="entEmail" Placeholder="Enter Email" Keyboard="Email" Text="{Binding Email, Mode=TwoWay}"/>
-        <Entry x:Name="entPass" Placeholder="Enter Password" IsPassword="True"/>
-        <Entry x:Name="entPassConfirm" Placeholder="Confirm Password" IsPassword="True" Text="{Binding Password, Mode=TwoWay}"/>
-        <Button Text="Signup"  x:Name="btnSignup" Clicked="btnSignup_Clicked"  Margin="0,25,0,0" Style="{StaticResource normalBtn}"/>
+        <Entry x:Name="entPass" Placeholder="Enter Password" IsPassword="True" Text="{Binding Password, Mode=TwoWay}"/>
+        <Entry x:Name="entPassConfirm" Placeholder="Confirm Password" IsPassword="True" Text="{Binding ConfirmPassword, Mode=TwoWay}"/>
+        <Button Text="Signup"  x:Name="btnSignup" Command="{Binding RegisterCommand}" CommandParameter="{Binding User}"  Margin="0,25,0,0" Style="{StaticResource normalBtn}"/>
     </StackLayout>
 </ContentPage>
