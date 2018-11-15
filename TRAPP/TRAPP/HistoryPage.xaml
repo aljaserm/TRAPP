@@ -1,11 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="TRAPP.HistoryPage">
-    <ListView x:Name="lvPost">
+             x:Class="TRAPP.HistoryPage"
+             xmlns:converter="clr-namespace:TRAPP.ViewModel.Converter">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:DateTimeToStringConverter x:Key="converter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ListView x:Name="lvPost"
+              ItemsSource="{Binding Posts}">
         <ListView.ItemTemplate>
             <DataTemplate>
-                <TextCell Text="{Binding Experience}"/>
+                <TextCell Text="{Binding Experience}"
+                          Detail="{Binding CREATEDAT, Converter={StaticResource converter}}"/>
             </DataTemplate>
         </ListView.ItemTemplate>
     </ListView>
