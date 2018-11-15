@@ -27,45 +27,55 @@ namespace TRAPP
         {
             base.OnAppearing();
 
-
             try
             {
-
                 var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
                 if (status != PermissionStatus.Granted)
                 {
                     if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Permission.Location))
                     {
-                        await DisplayAlert("Need Perm", "Need ur loc", "ok");
+                        await DisplayAlert("Need location", "Gunna need that location", "OK");
                     }
-                    var result = await CrossPermissions.Current.RequestPermissionsAsync(Permission.Location);
-                    if (result.ContainsKey(Permission.Location))
-                    {
-                        status = result[Permission.Location];
-                    }
+
+                    var results = await CrossPermissions.Current.RequestPermissionsAsync(Permission.Location);
+                    status = results[Permission.Location];
                 }
+
                 if (status == PermissionStatus.Granted)
                 {
-
                     var locator = CrossGeolocator.Current;
                     locator.PositionChanged += Locator_PositionChanged;
                     await locator.StartListeningAsync(TimeSpan.FromSeconds(0), 100);
-                    var position =await locator.GetPositionAsync();
+                    var position = await locator.GetPositionAsync();
                     var center = new Position(position.Latitude, position.Longitude);
                     var span = new MapSpan(center, 2, 2);
                     mpLocation.MoveToRegion(span);
                     var p = await Post.Read();
                     DisplayinMap(p);
                 }
-                else
+                else if (status != PermissionStatus.Unknown)
                 {
-                    await DisplayAlert("Need Perm", "Need ur loc", "ok");
+                    await DisplayAlert("Location Denied", "Can not continue, try again.", "OK");
                 }
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e);
             }
+
+
+         
+               // if (status == PermissionStatus.Granted)
+                //{
+
+
+                //}
+               // else
+                //{
+                  //  await DisplayAlert("Need Perm", "Need ur loc", "ok");
+                //}
+
+        
         }
 
         protected override async void OnDisappearing()
