@@ -1,4 +1,6 @@
 ﻿using Plugin.Geolocator;
+using Plugin.Permissions;
+using Plugin.Permissions.Abstractions;
 using SQLite;
 using System;
 using System.Collections.Generic;
@@ -23,19 +25,42 @@ namespace TRAPP
 
         protected async override void OnAppearing()
         {
+            base.OnAppearing();
+
+
             try
-            { 
-                base.OnAppearing();
-                var locator = CrossGeolocator.Current;
-                locator.PositionChanged += Locator_PositionChanged;
-                await locator.StartListeningAsync(TimeSpan.FromSeconds(0), 100);
-                var position =await locator.GetPositionAsync();
-                var center = new Position(position.Latitude, position.Longitude);
-                var span = new MapSpan(center, 2, 2);
-                mpLocation.MoveToRegion(span);
-                var p = await Post.Read();
-                DisplayinMap(p);
-                
+            {
+
+                var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
+                if (status != PermissionStatus.Granted)
+                {
+                    if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Permission.Location))
+                    {
+                        await DisplayAlert("Need Perm", "Need ur loc", "ok");
+                    }
+                    var result = await CrossPermissions.Current.RequestPermissionsAsync(Permission.Location);
+                    if (result.ContainsKey(Permission.Location))
+                    {
+                        status = result[Permission.Location];
+                    }
+                }
+                if (status == PermissionStatus.Granted)
+                {
+
+                    var locator = CrossGeolocator.Current;
+                    locator.PositionChanged += Locator_PositionChanged;
+                    await locator.StartListeningAsync(TimeSpan.FromSeconds(0), 100);
+                    var position =await locator.GetPositionAsync();
+                    var center = new Position(position.Latitude, position.Longitude);
+                    var span = new MapSpan(center, 2, 2);
+                    mpLocation.MoveToRegion(span);
+                    var p = await Post.Read();
+                    DisplayinMap(p);
+                }
+                else
+                {
+                    await DisplayAlert("Need Perm", "Need ur loc", "ok");
+                }
             }
             catch (Exception e)
             {
