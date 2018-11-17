@@ -87,13 +87,6 @@ namespace TRAPP.Model
             get { return userID; }
             set { userID = value; onPropertyChange("UserID"); }
         }
-        private DateTimeOffset createdat;
-
-        public DateTimeOffset CREATEDAT
-        {
-            get { return createdat; }
-            set { createdat = value; onPropertyChange("CREATEDAT"); }
-        }
 
         private Venue venue;
         [JsonIgnore]
@@ -143,16 +136,8 @@ namespace TRAPP.Model
             Dictionary<string, int> CategoryCount = new Dictionary<string, int>();
             foreach (var c in category)
             {
-                if (c!=null)
-                {
-                    var count = (from p in posts where p.CategoryName == c select p).ToList().Count;
-                    CategoryCount.Add(c, count);
-                }
-                else
-                {
-                    var count = (from p in posts where p.CategoryName == c select p).ToList().Count;
-                    CategoryCount.Add("No Category", count);
-                }
+                var count = (from p in posts where p.CategoryName == c select p).ToList().Count;
+                CategoryCount.Add(c, count);
 
             }
             return CategoryCount;

@@ -9,7 +9,7 @@
                      CommandParameter="{Binding Post}"/>
     </ContentPage.ToolbarItems>
 
-    <StackLayout x:Name="ContainerStackLayout" CompressedLayout.IsHeadless="True">
+    <StackLayout x:Name="ContainerStackLayout">
         <Entry x:Name="entExperience"
                Text="{Binding Experience,Mode=TwoWay}"
                Placeholder="Write you Experience" />

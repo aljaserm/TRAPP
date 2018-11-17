@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TRAPP.Model;
-using TRAPP.ViewModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -15,21 +14,26 @@ namespace TRAPP
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class HistoryPage : ContentPage
 	{
-        HistoryVM hvm;
 		public HistoryPage ()
 		{
 			InitializeComponent ();
-            hvm = new HistoryVM();
-            BindingContext = hvm;
 		}
 
-        protected  override void OnAppearing()
+        protected async override void OnAppearing()
         {
             base.OnAppearing();
 
             try
             {
-                hvm.Update();
+
+                var p = await Post.Read();
+                lvPost.ItemsSource = p;
+                //using (SQLiteConnection con = new SQLiteConnection(App.DBLocation))
+                //{
+                //    con.CreateTable<Post>();
+                //    var post = con.Table<Post>().ToList();
+                //    lvPost.ItemsSource = post;
+                //}
             }
             catch (Exception e)
             {
