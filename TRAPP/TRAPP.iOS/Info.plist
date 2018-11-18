@@ -36,5 +36,9 @@
 	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>TRAPP Needs Access to You Location to Track You Down</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>TRAPP Needs Access to You Calender to Track You Down</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>TRAPP Needs Access to You Bluetooth to Track You Down</string>
 </dict>
 </plist>

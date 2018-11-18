@@ -26,6 +26,7 @@ namespace TRAPP.Droid
             //CrossCurrentActivity.Current.Init(this, savedInstanceState);
             //CrossCurrentActivity.Current.Activity.Init(this);
             Xamarin.FormsMaps.Init(this, savedInstanceState);
+            Plugin.CurrentActivity.CrossCurrentActivity.Current.Init(this, savedInstanceState);
             CurrentPlatform.Init();
 
            // CrossCurrentActivity.Current.Activity.Init = this;
@@ -36,10 +37,10 @@ namespace TRAPP.Droid
 
             LoadApplication(new App(fullPath));
         }
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Android.Content.PM.Permission[] grantResults)
         {
-            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
             PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 }

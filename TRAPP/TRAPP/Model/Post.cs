@@ -88,6 +88,13 @@ namespace TRAPP.Model
             set { userID = value; onPropertyChange("UserID"); }
         }
 
+        private DateTimeOffset createdat;
+
+        public DateTimeOffset CREATEDAT
+        {
+            get { return createdat; }
+            set { createdat = value; onPropertyChange("CREATEDAT"); }
+        }
         private Venue venue;
         [JsonIgnore]
         public Venue Venue
