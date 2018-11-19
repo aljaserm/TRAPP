@@ -143,8 +143,11 @@ namespace TRAPP.Model
             Dictionary<string, int> CategoryCount = new Dictionary<string, int>();
             foreach (var c in category)
             {
-                var count = (from p in posts where p.CategoryName == c select p).ToList().Count;
-                CategoryCount.Add(c, count);
+                if(c!= null)
+                {
+                    var count = (from p in posts where p.CategoryName == c select p).ToList().Count;
+                    CategoryCount.Add(c, count);
+                }
 
             }
             return CategoryCount;
