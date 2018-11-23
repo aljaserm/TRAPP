@@ -8,7 +8,8 @@
             <converter:DateTimeToStringConverter x:Key="converter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
-    <ListView x:Name="lvPost">
+    <ListView x:Name="lvPost"
+              ItemsSource="{Binding Posts}">
         <ListView.ItemTemplate>
             <DataTemplate>
                 <TextCell Text="{Binding Experience}"
