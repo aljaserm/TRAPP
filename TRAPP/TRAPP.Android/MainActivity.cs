@@ -22,6 +22,7 @@ namespace TRAPP.Droid
             ToolbarResource = Resource.Layout.Toolbar;
 
             base.OnCreate(savedInstanceState);
+            global::Xamarin.Forms.Forms.SetFlags("FastRenderers_Experimental");
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             //CrossCurrentActivity.Current.Init(this, savedInstanceState);
             //CrossCurrentActivity.Current.Activity.Init(this);

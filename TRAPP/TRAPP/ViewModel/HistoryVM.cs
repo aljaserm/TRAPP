@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Text;
+using System.Threading.Tasks;
 using TRAPP.Model;
 
 namespace TRAPP.ViewModel
@@ -16,7 +17,7 @@ namespace TRAPP.ViewModel
             Posts = new ObservableCollection<Post>();
         }
 
-        public async void ReadHistory()
+        public async Task<bool> ReadHistory()
         {
             try
             {
@@ -24,9 +25,9 @@ namespace TRAPP.ViewModel
                 if (p != null)
                 {
                     Posts.Clear();
-                    foreach (var pt in p)
+                    foreach (var post in p)
                     {
-                        Posts.Add(pt);
+                        Posts.Add(post);
                         //lvPost.ItemsSource = p;
                     }
                 }
@@ -36,11 +37,18 @@ namespace TRAPP.ViewModel
                 //    var post = con.Table<Post>().ToList();
                 //    lvPost.ItemsSource = post;
                 //}
+                return true;
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e);
+                return false;
             }
+        }
+
+        public async void RemoveOldPost(Post deletePost)
+        {
+            await Post.Remove(deletePost);
         }
     }
 }

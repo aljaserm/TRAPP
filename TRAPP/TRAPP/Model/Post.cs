@@ -132,6 +132,20 @@ namespace TRAPP.Model
         {
             await App.MobileService.GetTable<Post>().InsertAsync(post);
         }
+
+        public static async Task<bool> Remove(Post post)
+        {
+            try
+            {
+                await App.MobileService.GetTable<Post>().DeleteAsync(post);
+                return true;
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
+        }
+
         public static async Task<List<Post>> Read()
         {
            var read= await App.MobileService.GetTable<Post>().Where(x => x.UserID == App.userGlobal.Id).ToListAsync();

@@ -29,5 +29,19 @@ namespace TRAPP
 
             Hvm.ReadHistory();
         }
+
+        private void MenuItem_Clicked(object sender, EventArgs e)
+        {
+            var post =(Post) ((MenuItem)sender).CommandParameter;
+            Hvm.RemoveOldPost(post);
+
+            Hvm.ReadHistory();
+        }
+
+        private async void LvPost_Refreshing(object sender, EventArgs e)
+        {
+            await Hvm.ReadHistory();
+            lvPost.IsRefreshing = false;
+        }
     }
 }
