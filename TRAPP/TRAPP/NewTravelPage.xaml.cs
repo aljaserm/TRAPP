@@ -92,6 +92,13 @@ namespace TRAPP
             GetLocation();
         }
 
+        protected override async void OnDisappearing()
+        {
+            base.OnDisappearing();
+            var locator = CrossGeolocator.Current;
+            locator.PositionChanged -= Locator_PositionChanged;
+            await locator.StopListeningAsync();
+        }
 
 
 

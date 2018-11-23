@@ -83,21 +83,25 @@ namespace TRAPP
         protected async override void OnAppearing()
         {
             base.OnAppearing();
+            var locator = CrossGeolocator.Current;
             if (HasLocation)
             {
-                var locator = CrossGeolocator.Current;
+                
                 locator.PositionChanged += Locator_PositionChanged;
-                await locator.StartListeningAsync(TimeSpan.Zero, 50);
+                await locator.StartListeningAsync(TimeSpan.Zero, 100);
             }
-                GetLocation();
+            //if (locator!= null &&locator.IsListening == true)
+            //{
+            GetLocation();
+            //}
 
             //locator.PositionChanged += Locator_PositionChanged;
 
             //await locator.StartListeningAsync(TimeSpan.FromSeconds(0), 100);
-                    
+
             //        mpLocation.MoveToRegion(span);
-            //        var p = await Post.Read();
-            //        DisplayinMap(p);        
+            var p = await Post.Read();
+            DisplayinMap(p);
         }
 
         protected override async void OnDisappearing()
