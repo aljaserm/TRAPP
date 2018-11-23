@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using System.ComponentModel;
 using Newtonsoft.Json;
+using Microsoft.WindowsAzure.MobileServices;
 
 namespace TRAPP.Model
 {
@@ -130,14 +131,16 @@ namespace TRAPP.Model
 
         public static async void Insert(Post post)
         {
-            await App.MobileService.GetTable<Post>().InsertAsync(post);
+            await App.PostTableGlobal.InsertAsync(post);
+            await App.MobileService.SyncContext.PushAsync();
         }
 
         public static async Task<bool> Remove(Post post)
         {
             try
             {
-                await App.MobileService.GetTable<Post>().DeleteAsync(post);
+                await App.PostTableGlobal.DeleteAsync(post);
+                await App.MobileService.SyncContext.PushAsync();
                 return true;
             }
             catch(Exception ex)
@@ -148,7 +151,7 @@ namespace TRAPP.Model
 
         public static async Task<List<Post>> Read()
         {
-           var read= await App.MobileService.GetTable<Post>().Where(x => x.UserID == App.userGlobal.Id).ToListAsync();
+           var read= await App.PostTableGlobal.Where(x => x.UserID == App.userGlobal.Id).ToListAsync();
             return read;
         }
         public static Dictionary<string,int> CategoryDictionry(List<Post> posts)

@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TRAPP.Helpers;
 using TRAPP.Model;
 using TRAPP.ViewModel;
 using Xamarin.Forms;
@@ -23,11 +24,13 @@ namespace TRAPP
             BindingContext = Hvm;
 		}
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
 
             Hvm.ReadHistory();
+
+           await AzureAppServiceHelper.SyncAsync();
         }
 
         private void MenuItem_Clicked(object sender, EventArgs e)
@@ -41,6 +44,7 @@ namespace TRAPP
         private async void LvPost_Refreshing(object sender, EventArgs e)
         {
             await Hvm.ReadHistory();
+            await AzureAppServiceHelper.SyncAsync();
             lvPost.IsRefreshing = false;
         }
     }

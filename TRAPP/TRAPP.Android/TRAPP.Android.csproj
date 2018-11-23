@@ -55,6 +55,9 @@
     <PackageReference Include="Microsoft.Azure.Mobile.Client">
       <Version>4.0.2</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.Azure.Mobile.Client.SQLiteStore">
+      <Version>4.0.2</Version>
+    </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>11.0.2</Version>
     </PackageReference>
@@ -91,7 +94,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
-    <Compile Include="MainApplication.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,4 +1,6 @@
 ﻿using Microsoft.WindowsAzure.MobileServices;
+using Microsoft.WindowsAzure.MobileServices.SQLiteStore;
+using Microsoft.WindowsAzure.MobileServices.Sync;
 using System;
 using TRAPP.Model;
 using Xamarin.Forms;
@@ -14,6 +16,7 @@ namespace TRAPP
             new MobileServiceClient(
             "https://trapp.azurewebsites.net"
         );
+        public static IMobileServiceSyncTable<Post> PostTableGlobal;
         public static User userGlobal = new User();
 
         public App()
@@ -31,6 +34,10 @@ namespace TRAPP
             //MainPage = new MainPage();
             MainPage = new NavigationPage(new MainPage());
             DBLocation = dbLocation;
+            var store =new MobileServiceSQLiteStore(DBLocation);
+            store.DefineTable<Post>();
+            MobileService.SyncContext.InitializeAsync(store);
+            PostTableGlobal = MobileService.GetSyncTable<Post>();
         }
 
         protected override void OnStart()

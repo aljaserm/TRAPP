@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Azure.Mobile.Client" Version="4.0.2" />
+    <PackageReference Include="Microsoft.Azure.Mobile.Client.SQLiteStore" Version="4.0.2" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="Plugin.Permissions" Version="3.0.0.12" />
     <PackageReference Include="sqlite-net-pcl" Version="1.5.231" />
